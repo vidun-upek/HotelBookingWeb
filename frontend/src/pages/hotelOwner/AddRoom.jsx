@@ -20,13 +20,23 @@ const AddRoom = () => {
     setImages(prev => ({ ...prev, [key]: file }));
   };
 
+  const handleAmenityToggle = (name) => {
+    setInputs(prev => ({
+      ...prev,
+      amenities: {
+        ...prev.amenities,
+        [name]: !prev.amenities[name]
+      }
+    }));
+  };
+
   return (
-    <form className="bg-white p-8 rounded-3xl shadow-sm border max-w-4xl">
+    <form className="bg-white p-8 rounded-3xl shadow-sm border max-w-4xl mx-auto my-10">
       <Title align="left" font="outfit" title="Add New Room" subtitle="Upload images and provide details for the new hotel room listing." />
 
       {/* Image Upload Grid */}
       <div className="mb-8">
-        <p className="text-gray-500 font-bold mb-4">Room Images</p>
+        <p className="text-gray-700 font-bold mb-4">Room Images</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((key) => (
             <label key={key} htmlFor={`room-img-${key}`} className="cursor-pointer">
@@ -47,7 +57,7 @@ const AddRoom = () => {
         </div>
       </div>
 
-      {/* Details Row */}
+      {/* Type and Price Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <div className="flex flex-col gap-2">
           <label className="font-bold text-gray-700">Room Type</label>
@@ -56,7 +66,7 @@ const AddRoom = () => {
             value={inputs.roomType}
             onChange={(e) => setInputs({...inputs, roomType: e.target.value})}
           >
-            <option value="">Select Type</option>
+            <option value="">Select Room Type</option>
             <option value="Single Bed">Single Bed</option>
             <option value="Double Bed">Double Bed</option>
             <option value="Luxury Room">Luxury Room</option>
@@ -65,13 +75,35 @@ const AddRoom = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="font-bold text-gray-700">Price Per Night ($)</label>
+          <label className="font-bold text-gray-700">Price Per Night <span className="text-xs font-normal text-gray-400">($)</span></label>
           <input 
             type="number" 
             className="border p-3 rounded-xl outline-none" 
             placeholder="0"
+            value={inputs.pricePerNight}
             onChange={(e) => setInputs({...inputs, pricePerNight: e.target.value})}
           />
+        </div>
+      </div>
+
+      {/* Amenities Selection */}
+      <div className="mb-8">
+        <p className="text-gray-700 font-bold mb-4">Amenities</p>
+        <div className="flex flex-wrap gap-4">
+          {Object.keys(inputs.amenities).map((amenity, index) => (
+            <div key={index} className="flex items-center gap-3">
+              <input 
+                type="checkbox" 
+                id={`amenity-${index}`}
+                checked={inputs.amenities[amenity]}
+                onChange={() => handleAmenityToggle(amenity)}
+                className="w-5 h-5 accent-primary"
+              />
+              <label htmlFor={`amenity-${index}`} className="text-sm cursor-pointer select-none">
+                {amenity}
+              </label>
+            </div>
+          ))}
         </div>
       </div>
 
