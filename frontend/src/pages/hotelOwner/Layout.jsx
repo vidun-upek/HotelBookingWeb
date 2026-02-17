@@ -1,10 +1,20 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/hotelOwner/Sidebar';
 import Navbar from '../../components/hotelOwner/Navbar';
+import { useAppContext } from '../../context/AppContext';
 
 const Layout = () => {
-  return (
+  const { isOwner } = useAppContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isOwner) {
+      navigate('/');
+    }
+  }, [isOwner, navigate]);
+
+  return isOwner ? (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="flex">
@@ -14,7 +24,7 @@ const Layout = () => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Layout;
