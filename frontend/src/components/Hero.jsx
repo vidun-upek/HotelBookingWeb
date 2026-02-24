@@ -26,13 +26,18 @@ const Hero = () => {
   };
 
   return (
-    <form onSubmit={onSearch} className="bg-white p-6 rounded-lg shadow-lg flex gap-4 mt-8">
-      <input 
-        value={destination} 
+    <form onSubmit={onSearch} className="bg-white p-6 rounded-lg shadow-lg flex gap-4 mt-8 items-center flex-col sm:flex-row">
+      <label htmlFor="hero-destination" className="sr-only">Search destination</label>
+      <input
+        id="hero-destination"
+        value={destination}
         onChange={(e) => setDestination(e.target.value)}
-        list="cities" placeholder="Where to?" className="outline-none border-b"
+        list="cities"
+        placeholder="Where to?"
+        className="w-full sm:flex-1 outline-none border-b py-2 px-3"
+        aria-label="Search destination"
       />
-      <button type="submit" className="bg-primary p-3 rounded-md">Search</button>
+      <button type="submit" style={{backgroundColor: 'var(--color-primary)'}} className="text-white px-4 py-2 rounded-md w-full sm:w-auto mt-3 sm:mt-0">Search</button>
     </form>
   );
 };
