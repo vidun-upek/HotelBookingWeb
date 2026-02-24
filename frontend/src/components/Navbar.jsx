@@ -6,39 +6,69 @@ const Navbar = () => {
   const { user } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
+  const [open, setOpen] = React.useState(false);
 
-  // Book Icon SVG (Extracted from assets as per tutorial)
   const BookIcon = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      {/* SVG Path from your assets.js */}
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M3 5h18v14H3z" stroke="currentColor" strokeWidth="1.2" />
     </svg>
   );
 
   return (
-    <nav>
-      {/* ... other nav code ... */}
-      
-      {user ? (
-        <UserButton>
-          <UserButton.MenuItems>
-            <UserButton.Action 
-              label="My Bookings" 
-              labelIcon={<BookIcon />} 
-              onClick={() => navigate('/my-bookings')} 
-            />
-          </UserButton.MenuItems>
-        </UserButton>
-      ) : (
-        <button onClick={() => openSignIn()} className="bg-primary text-white px-6 py-2 rounded-full">
-          Login
-        </button>
-      )}
+    <nav className="w-full bg-white shadow-sm fixed top-0 left-0 z-40">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center gap-4">
+            <button onClick={() => navigate('/')} className="text-lg font-bold text-[var(--color-primary)]">Hotelly</button>
+            <div className="hidden md:flex items-center gap-4">
+              <button onClick={() => navigate('/rooms')} className="text-sm text-gray-600 hover:text-blue-600">Explore</button>
+              <button onClick={() => navigate('/offers')} className="text-sm text-gray-600 hover:text-blue-600">Offers</button>
+            </div>
+          </div>
 
-      {/* Dashboard button - only visible to logged in users */}
-      {user && (
-        <button onClick={() => navigate('/owner')} className="ml-4">
-          Dashboard
-        </button>
+          <div className="hidden md:flex items-center gap-3">
+            {user ? (
+              <>
+                <button onClick={() => navigate('/owner')} className="text-sm px-3 py-1 rounded hover:bg-gray-100">Dashboard</button>
+                <UserButton />
+              </>
+            ) : (
+              <button onClick={() => openSignIn()} style={{backgroundColor: 'var(--color-primary)'}} className="text-white px-4 py-2 rounded-full">Login</button>
+            )}
+          </div>
+
+          <div className="md:hidden">
+            <button
+              onClick={() => setOpen((s) => !s)}
+              aria-expanded={open}
+              aria-label="Toggle menu"
+              className="p-2 rounded-md focus-visible:ring-2"
+            >
+              {open ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="1.5"/></svg>
+              ) : (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="1.5"/></svg>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {open && (
+        <div className="md:hidden bg-white border-t">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            <button onClick={() => { setOpen(false); navigate('/rooms'); }} className="block w-full text-left px-3 py-2 rounded">Explore</button>
+            <button onClick={() => { setOpen(false); navigate('/offers'); }} className="block w-full text-left px-3 py-2 rounded">Offers</button>
+            {user ? (
+              <>
+                <button onClick={() => { setOpen(false); navigate('/owner'); }} className="block w-full text-left px-3 py-2 rounded">Dashboard</button>
+                <div className="px-3 py-2"><UserButton /></div>
+              </>
+            ) : (
+                <button onClick={() => { setOpen(false); openSignIn(); }} style={{backgroundColor: 'var(--color-primary)'}} className="block w-full text-left px-3 py-2 rounded text-white">Login</button>
+            )}
+          </div>
+        </div>
       )}
     </nav>
   );
