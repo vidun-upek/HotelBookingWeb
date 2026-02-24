@@ -32,7 +32,7 @@ const HotelRegistration = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowHotelRegistration(false)}>
+    <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowHotelRegistration(false)}>
       <form 
         onClick={(e) => e.stopPropagation()} 
         onSubmit={onsubmitHandler}
