@@ -6,11 +6,18 @@ const connectDB = async () => {
             console.log('Database connected successfully');
         });
 
-        // The process.env.MONGODB_URI is pulled from the .env inside /backend
-        await mongoose.connect(`${process.env.MONGODB_URI}/hotel-booking`);
+        const uri = process.env.MONGODB_URI;
+        if (!uri) throw new Error('MONGODB_URI not set');
+
+        // use recommended options
+        await mongoose.connect(`${uri}/hotel-booking`, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
     } catch (error) {
-        console.log('Database connection error:', error.message);
-        process.exit(1);
+        console.error('Database connection error:', error.message);
+        // Do not crash immediately in dev; rethrow so caller can decide
+        throw error;
     }
 };
 
