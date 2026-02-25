@@ -9,6 +9,7 @@ import userRouter from './routes/userRoutes.js';
 import hotelRouter from './routes/hotelRoutes.js';
 import roomRouter from './routes/roomRoutes.js';
 import bookingRouter from './routes/bookingRoutes.js';
+import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -30,6 +31,9 @@ app.use('/api/user', userRouter);
 app.use('/api/hotels', hotelRouter);
 app.use('/api/rooms', roomRouter);
 app.use('/api/bookings', bookingRouter);
+
+// Centralized error handler (must be after routes)
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`🚀 Backend running on port ${PORT}`);
