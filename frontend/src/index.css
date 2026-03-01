@@ -7,6 +7,19 @@
   --color-bg: #ffffff;
   --color-muted: #6b7280;
   --radius: 12px;
+  
+  /* Light mode colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+}
+
+.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
 }
 
 *{
@@ -32,3 +45,33 @@
 /* Smooth image loading placeholder */
 .img-plain{transition:opacity .25s ease-in-out}
 .img-plain.loading{opacity:.6;filter:blur(6px)}
+
+/* Project utility classes */
+.btn-primary{background-color:var(--color-primary)}
+.btn-primary:hover{opacity:0.95}
+.btn-secondary{background-color:var(--color-secondary)}
+.btn-secondary:hover{opacity:0.95}
+.badge-primary{background-color:var(--color-primary);opacity:0.95}
+.text-primary{color:var(--color-primary)}
+
+/* Dark mode support for Tailwind classes */
+@layer components {
+  .dark input,
+  .dark textarea,
+  .dark select,
+  .dark button {
+    @apply bg-gray-800 text-gray-100;
+  }
+  
+  .dark .bg-white {
+    @apply bg-gray-900;
+  }
+  
+  .dark .bg-gray-50 {
+    @apply bg-gray-950;
+  }
+  
+  .dark .border-gray-200 {
+    @apply border-gray-700;
+  }
+}
