@@ -23,7 +23,7 @@ const FeaturedDestination = () => {
       <div className="flex justify-center mt-12">
         <button 
           onClick={() => { navigate('/rooms'); window.scrollTo(0, 0); }}
-          className="bg-primary text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all"
+          className="bg-primary dark:bg-blue-600 text-white px-8 py-3 rounded-full hover:opacity-90 transition-all"
         >
           View all destinations
         </button>
