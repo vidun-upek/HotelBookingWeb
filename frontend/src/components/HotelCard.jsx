@@ -7,7 +7,7 @@ const HotelCard = ({ room, index }) => {
     <Link
       to={`/rooms/${room.id}`}
       onClick={() => window.scrollTo(0, 0)}
-      className="bg-white rounded-xl shadow-lg overflow-hidden block transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-blue-300"
+      className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden block transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-blue-300 dark:shadow-gray-900"
       aria-label={`View details for ${room.hotel.name}`}
     >
       <div className="relative">
@@ -20,7 +20,7 @@ const HotelCard = ({ room, index }) => {
           height="320"
         />
         {index % 4 === 0 && (
-          <p className="absolute top-2 left-2 text-white text-xs px-2 py-1 rounded" style={{backgroundColor: 'var(--color-primary)'}}>
+          <p className="absolute top-2 left-2 text-white text-xs px-2 py-1 rounded badge-primary">
             Best Seller
           </p>
         )}
@@ -28,23 +28,23 @@ const HotelCard = ({ room, index }) => {
 
       <div className="p-4">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="font-bold text-lg">{room.hotel.name}</h3>
-          <div className="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded text-sm">
+          <h3 className="font-bold text-lg dark:text-white">{room.hotel.name}</h3>
+          <div className="flex items-center gap-1 bg-yellow-100 dark:bg-yellow-900 px-2 py-1 rounded text-sm dark:text-yellow-200">
             <img src={assets.star_icon_filled} className="h-3" alt="rating" />
             <span>4.5</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-1 text-gray-500 text-sm mb-4">
+        <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400 text-sm mb-4">
           <img src={assets.location_icon} className="h-3" alt="location" />
           <span>{room.hotel.address}</span>
         </div>
 
         <div className="flex justify-between items-center">
-          <p className="font-bold" style={{color: 'var(--color-primary)'}}>
+          <p className="font-bold text-primary">
             ${room.pricePerNight} <span className="text-gray-400 font-normal text-sm">/ night</span>
           </p>
-          <Link to={`/rooms/${room.id}`} onClick={(e) => { e.stopPropagation(); window.scrollTo(0,0); }} className="text-white px-4 py-1 rounded text-sm focus-visible:ring-2 focus-visible:ring-blue-300" style={{backgroundColor: 'var(--color-secondary)'}} aria-label={`Book ${room.hotel.name}`}>
+          <Link to={`/rooms/${room.id}`} onClick={(e) => { e.stopPropagation(); window.scrollTo(0,0); }} className="text-white px-4 py-1 rounded text-sm focus-visible:ring-2 focus-visible:ring-blue-300 btn-secondary" aria-label={`Book ${room.hotel.name}`}>
             Book Now
           </Link>
         </div>
