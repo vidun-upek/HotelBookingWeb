@@ -9,8 +9,17 @@ export const AppProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const currency = import.meta.env.VITE_CURRENCY || "$";
   
-  const { user } = useUser();
-  const { getToken } = useAuth();
+  // Guard Clerk hooks — they throw if no ClerkProvider. Use fallbacks when unavailable.
+  let user = null;
+  let getToken = async () => null;
+  try {
+    const userData = useUser();
+    const authData = useAuth();
+    user = userData?.user || null;
+    getToken = authData?.getToken || (async () => null);
+  } catch (err) {
+    // no ClerkProvider available — continue with fallbacks
+  }
 
   const [isOwner, setIsOwner] = useState(false);
   const [showHotelRegistration, setShowHotelRegistration] = useState(false);

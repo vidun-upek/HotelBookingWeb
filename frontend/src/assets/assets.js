@@ -74,6 +74,19 @@ export const assets = {
     totalRevenueIcon,
 }
 
+// provide snake_case aliases for legacy component imports
+assets.arrow_icon = arrowIcon;
+assets.add_icon = addIcon;
+assets.star_icon_filled = starIconFilled;
+assets.location_icon = locationIcon;
+assets.search_icon = searchIcon;
+assets.user_icon = userIcon;
+assets.close_icon = closeIcon;
+assets.menu_icon = menuIcon;
+assets.close_menu = closeMenu;
+assets.guests_icon = guestsIcon;
+assets.placeholder = roomImg1;
+
 export const cities = [
     "Dubai",
     "Singapore",
@@ -87,6 +100,16 @@ export const exclusiveOffers = [
     { _id: 2, title: "Romantic Getaway", description: "Special couples package including spa treatment", priceOff: 20, expiryDate: "Sep 20", image: exclusiveOfferCardImg2 },
     { _id: 3, title: "Luxury Retreat", description: "Book 60 days in advance and save on your stay at any of our luxury properties worldwide.", priceOff: 30, expiryDate: "Sep 25", image: exclusiveOfferCardImg3 },
 ]
+
+// snake_case alias expected by some components
+export const exclusive_offers = exclusiveOffers.map(item => ({
+    id: item._id ?? item.id,
+    title: item.title,
+    description: item.description,
+    price_off: item.priceOff ?? item.price_off,
+    expiry_date: item.expiryDate ?? item.expiry_date,
+    image: item.image,
+}));
 
 // Testimonials Dummy Data
 export const testimonials = [
@@ -192,7 +215,11 @@ export const roomsDummyData = [
     }
 ]
 
-
+// snake_case alias for legacy imports
+export const rooms_dummy_data = roomsDummyData.map(item => ({
+    ...item,
+    id: item._id ?? item.id,
+}));
 
 // User Bookings Dummy Data
 export const userBookingsDummyData = [
@@ -245,6 +272,9 @@ export const userBookingsDummyData = [
         "__v": 0
     }
 ]
+
+// snake_case alias for userBookingsDummyData
+export const user_bookings_dummy_data = userBookingsDummyData;
 
 // Dashboard Dummy Data
 export const dashboardDummyData = {
