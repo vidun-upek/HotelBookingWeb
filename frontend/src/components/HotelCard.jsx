@@ -44,9 +44,9 @@ const HotelCard = ({ room, index }) => {
           <p className="font-bold text-primary">
             ${room.pricePerNight} <span className="text-gray-400 font-normal text-sm">/ night</span>
           </p>
-          <Link to={`/rooms/${room.id}`} onClick={(e) => { e.stopPropagation(); window.scrollTo(0,0); }} className="text-white px-4 py-1 rounded text-sm focus-visible:ring-2 focus-visible:ring-blue-300 btn-secondary" aria-label={`Book ${room.hotel.name}`}>
+          <button onClick={(e) => { e.preventDefault(); window.scrollTo(0,0); }} className="text-white px-4 py-1 rounded text-sm focus-visible:ring-2 focus-visible:ring-blue-300 btn-secondary" aria-label={`Book ${room.hotel.name}`}>
             Book Now
-          </Link>
+          </button>
         </div>
       </div>
     </Link>

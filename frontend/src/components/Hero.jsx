@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
   const [destination, setDestination] = useState('');
-  const { navigate, axios, getToken, setSearchedCities } = useAppContext();
+  const navigate = useNavigate();
+  const { axios, getToken, setSearchedCities } = useAppContext();
 
   const onSearch = async (e) => {
     e.preventDefault();

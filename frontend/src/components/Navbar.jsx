@@ -4,8 +4,20 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
-  const { openSignIn } = useClerk();
-  const { user } = useUser();
+  // Guard Clerk hooks: when no ClerkProvider is present they throw — catch and use fallbacks.
+  let openSignIn = () => {};
+  let user = null;
+  let UserButtonComp = null;
+  try {
+    const clerk = useClerk();
+    const u = useUser();
+    openSignIn = clerk.openSignIn || (() => {});
+    user = u?.user || null;
+    UserButtonComp = UserButton;
+  } catch (err) {
+    // no Clerk provider available — continue with fallbacks
+  }
+
   const navigate = useNavigate();
   const location = useLocation();
   const { isDark, toggleTheme } = useTheme();
@@ -40,7 +52,7 @@ const Navbar = () => {
             {user ? (
               <>
                 <button onClick={() => navigate('/owner')} className="text-sm px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition">Dashboard</button>
-                <UserButton />
+                {UserButtonComp ? <UserButtonComp /> : null}
               </>
             ) : (
               <button onClick={() => openSignIn()} className="btn-primary text-white px-4 py-2 rounded-full">Login</button>
@@ -88,7 +100,7 @@ const Navbar = () => {
             {user ? (
               <>
                 <button onClick={() => { setOpen(false); navigate('/owner'); }} className="block w-full text-left px-3 py-2 rounded dark:hover:bg-gray-800">Dashboard</button>
-                <div className="px-3 py-2"><UserButton /></div>
+                <div className="px-3 py-2">{UserButtonComp ? <UserButtonComp /> : null}</div>
               </>
             ) : (
                 <button onClick={() => { setOpen(false); openSignIn(); }} className="block w-full text-left px-3 py-2 rounded text-white btn-primary">Login</button>
