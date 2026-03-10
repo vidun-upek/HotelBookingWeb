@@ -1,5 +1,5 @@
-QuickStay – Full-Stack Hotel Booking Platform
-QuickStay is a production-ready, full-stack hotel booking application built using the MERN (MongoDB, Express, React, Node.js) stack. The platform provides a seamless experience for users to discover and book rooms, while offering a robust dashboard for hotel owners to manage their properties, track revenue, and handle room availability in real-time.
+Hotelify – Full-Stack Hotel Booking Platform
+Hotelify is a production-ready, full-stack hotel booking application built using the MERN (MongoDB, Express, React, Node.js) stack. The platform provides a seamless experience for users to discover and book rooms, while offering a robust dashboard for hotel owners to manage their properties, track revenue, and handle room availability in real-time.
 
 🚀 Key Features
 For Users
